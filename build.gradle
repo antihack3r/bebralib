@@ -1,0 +1,10 @@
+plugins {
+    id 'java'
+}
+
+group = 'ru.antihack3r.bebralib'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
