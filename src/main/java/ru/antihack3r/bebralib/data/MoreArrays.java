@@ -266,9 +266,113 @@ public class MoreArrays {
 		return arrayList;
 	}
 	
+	public static byte[] asByteArray(List<Byte> list) {
+		byte[] newArray = new byte[list.size()];
+		int counter = 0;
+		for (byte thing: list) {
+			newArray[counter] = thing;
+			counter += 1;
+		}
+		
+		return newArray;
+	}
+	
+	public static short[] asShortArray(List<Short> list) {
+		short[] newArray = new short[list.size()];
+		int counter = 0;
+		for (short thing: list) {
+			newArray[counter] = thing;
+			counter += 1;
+		}
+		
+		return newArray;
+	}
+	
+	public static int[] asIntArray(List<Integer> list) {
+		int[] newArray = new int[list.size()];
+		int counter = 0;
+		for (int thing: list) {
+			newArray[counter] = thing;
+			counter += 1;
+		}
+		
+		return newArray;
+	}
+	
+	public static long[] asLongArray(List<Long> list) {
+		long[] newArray = new long[list.size()];
+		int counter = 0;
+		for (long thing: list) {
+			newArray[counter] = thing;
+			counter += 1;
+		}
+		
+		return newArray;
+	}
+	
+	public static float[] asFloatArray(List<Float> list) {
+		float[] newArray = new float[list.size()];
+		int counter = 0;
+		for (float thing: list) {
+			newArray[counter] = thing;
+			counter += 1;
+		}
+		
+		return newArray;
+	}
+	
+	public static double[] asDoubleArray(List<Double> list) {
+		double[] newArray = new double[list.size()];
+		int counter = 0;
+		for (double thing: list) {
+			newArray[counter] = thing;
+			counter += 1;
+		}
+		
+		return newArray;
+	}
+	
+	public static boolean[] asBooleanArray(List<Boolean> list) {
+		boolean[] newArray = new boolean[list.size()];
+		int counter = 0;
+		for (boolean thing: list) {
+			newArray[counter] = thing;
+			counter += 1;
+		}
+		
+		return newArray;
+	}
+	
+	public static char[] asCharArray(List<Character> list) {
+		char[] newArray = new char[list.size()];
+		int counter = 0;
+		for (char thing: list) {
+			newArray[counter] = thing;
+			counter += 1;
+		}
+		
+		return newArray;
+	}
+	
+	public static <T> T[] asArray(List<T> list) {
+		T[] newArray = newArray(list.getClass().getComponentType(), list.size());
+		int counter = 0;
+		for (T thing: list) {
+			newArray[counter] = thing;
+			counter += 1;
+		}
+		
+		return newArray;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static <T> T[] newArray(T[] arrayWithType, int size) {
 		Class<?> typeOfArray = arrayWithType.getClass().getComponentType();
+		return (T[]) Array.newInstance(typeOfArray, size);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> T[] newArray(Class<?> typeOfArray, int size) {
 		return (T[]) Array.newInstance(typeOfArray, size);
 	}
 	

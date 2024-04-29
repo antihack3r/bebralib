@@ -6,6 +6,7 @@ package ru.antihack3r.bebralib.list;
 
 import javax.annotation.Nonnull;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A list in which all the elements are guaranteed to be non-null.
@@ -17,14 +18,12 @@ public class NonNullList<E> extends ArrayList<E> {
 	/**
 	 * Constructs a list containing the elements of the specified
 	 * collection, in the order they are returned by the collection's
-	 * iterator.
+	 * iterator, and filtered from null values.
 	 *
 	 * @param c the collection whose elements are to be placed into this list
-	 * @throws NullPointerException if the specified collection is null, or
-	 * if the specified collection contains a null element.
 	 */
 	public NonNullList(@Nonnull Collection<? extends E> c) {
-		super(c);
+		super(c.stream().filter(Objects::nonNull).collect(Collectors.toList()));
 		
 		for (E element: c) throwIfNull(element);
 	}
