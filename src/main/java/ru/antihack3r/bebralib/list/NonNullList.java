@@ -24,8 +24,6 @@ public class NonNullList<E> extends ArrayList<E> {
 	 */
 	public NonNullList(@Nonnull Collection<? extends E> c) {
 		super(c.stream().filter(Objects::nonNull).collect(Collectors.toList()));
-		
-		for (E element: c) throwIfNull(element);
 	}
 	
 	/**

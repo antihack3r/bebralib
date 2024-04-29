@@ -105,111 +105,39 @@ public class MoreArrays {
 	}
 	
 	public static byte[] filter(byte[] array, Predicate<Byte> predicate) {
-		List<Byte> list = asList(array).stream().filter(predicate).collect(Collectors.toList());
-		
-		byte[] newArray = new byte[list.size()];
-		int counter = 0;
-		for (byte thing: list) {
-			newArray[counter] = thing;
-			counter += 1;
-		}
-		
-		return newArray;
+		return asByteArray(asList(array).stream().filter(predicate).collect(Collectors.toList()));
 	}
 	
 	public static short[] filter(short[] array, Predicate<Short> predicate) {
-		List<Short> list = asList(array).stream().filter(predicate).collect(Collectors.toList());
-		
-		short[] newArray = new short[list.size()];
-		int counter = 0;
-		for (short thing: list) {
-			newArray[counter] = thing;
-			counter += 1;
-		}
-		
-		return newArray;
+		return asShortArray(asList(array).stream().filter(predicate).collect(Collectors.toList()));
 	}
 	
 	public static int[] filter(int[] array, Predicate<Integer> predicate) {
-		List<Integer> list = asList(array).stream().filter(predicate).collect(Collectors.toList());
-		
-		int[] newArray = new int[list.size()];
-		int counter = 0;
-		for (int thing: list) {
-			newArray[counter] = thing;
-			counter += 1;
-		}
-		
-		return newArray;
+		return asIntArray(asList(array).stream().filter(predicate).collect(Collectors.toList()));
 	}
 	
 	public static long[] filter(long[] array, Predicate<Long> predicate) {
-		List<Long> list = asList(array).stream().filter(predicate).collect(Collectors.toList());
-		
-		long[] newArray = new long[list.size()];
-		int counter = 0;
-		for (long thing: list) {
-			newArray[counter] = thing;
-			counter += 1;
-		}
-		
-		return newArray;
+		return asLongArray(asList(array).stream().filter(predicate).collect(Collectors.toList()));
 	}
 	
 	public static float[] filter(float[] array, Predicate<Float> predicate) {
-		List<Float> list = asList(array).stream().filter(predicate).collect(Collectors.toList());
-		
-		float[] newArray = new float[list.size()];
-		int counter = 0;
-		for (float thing: list) {
-			newArray[counter] = thing;
-			counter += 1;
-		}
-		
-		return newArray;
+		return asFloatArray(asList(array).stream().filter(predicate).collect(Collectors.toList()));
 	}
 	
 	public static double[] filter(double[] array, Predicate<Double> predicate) {
-		List<Double> list = asList(array).stream().filter(predicate).collect(Collectors.toList());
-		
-		double[] newArray = new double[list.size()];
-		int counter = 0;
-		for (double thing: list) {
-			newArray[counter] = thing;
-			counter += 1;
-		}
-		
-		return newArray;
+		return asDoubleArray(asList(array).stream().filter(predicate).collect(Collectors.toList()));
 	}
 	
 	public static boolean[] filter(boolean[] array, Predicate<Boolean> predicate) {
-		List<Boolean> list = asList(array).stream().filter(predicate).collect(Collectors.toList());
-		
-		boolean[] newArray = new boolean[list.size()];
-		int counter = 0;
-		for (boolean thing: list) {
-			newArray[counter] = thing;
-			counter += 1;
-		}
-		
-		return newArray;
+		return asBooleanArray(asList(array).stream().filter(predicate).collect(Collectors.toList()));
 	}
 	
 	public static char[] filter(char[] array, Predicate<Character> predicate) {
-		List<Character> list = asList(array).stream().filter(predicate).collect(Collectors.toList());
-		
-		char[] newArray = new char[list.size()];
-		int counter = 0;
-		for (char thing: list) {
-			newArray[counter] = thing;
-			counter += 1;
-		}
-		
-		return newArray;
+		return asCharArray(asList(array).stream().filter(predicate).collect(Collectors.toList()));
 	}
 	
 	public static <T> T[] filter(T[] array, Predicate<? super T> predicate) {
-		return Arrays.stream(array).filter(predicate).toArray((size) -> newArray(array, size));
+		return asArray(Arrays.stream(array).filter(predicate).collect(Collectors.toList()));
 	}
 	
 	public static List<Byte> asList(byte[] array) {
@@ -355,24 +283,18 @@ public class MoreArrays {
 	}
 	
 	public static <T> T[] asArray(List<T> list) {
-		T[] newArray = newArray(list.getClass().getComponentType(), list.size());
-		int counter = 0;
-		for (T thing: list) {
-			newArray[counter] = thing;
-			counter += 1;
-		}
-		
-		return newArray;
+		return list.stream().toArray((size) -> newArray(list.getClass().getComponentType(), size));
 	}
 	
-	@SuppressWarnings("unchecked")
-	public static <T> T[] newArray(T[] arrayWithType, int size) {
-		Class<?> typeOfArray = arrayWithType.getClass().getComponentType();
-		return (T[]) Array.newInstance(typeOfArray, size);
-	}
-	
+	/**
+	 * Makes a new array instance of the specified type and size.
+	 * @param typeOfArray a type for a new array.
+	 * @param size a size for a new array.
+	 * @throws IllegalArgumentException if <tt>size</tt> is negative.
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T[] newArray(Class<?> typeOfArray, int size) {
+		if (size < 0) throw new IllegalArgumentException("size is negative");
 		return (T[]) Array.newInstance(typeOfArray, size);
 	}
 	
