@@ -1,5 +1,5 @@
 /*
- * This file is a part of bebralib -- you can get yo copy at https://github.com/rusnuker/bebralib
+ * This file is a part of bebralib -- you can get yo copy at https://github.com/antihack3r/bebralib
  */
 
 package ru.antihack3r.bebralib.list;
