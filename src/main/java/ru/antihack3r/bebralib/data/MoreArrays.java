@@ -12,6 +12,9 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * Some more array utilities.
+ */
 public class MoreArrays {
 	
 	/**

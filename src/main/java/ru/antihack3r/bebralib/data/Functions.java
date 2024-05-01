@@ -8,6 +8,9 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+/**
+ * Common functions.
+ */
 public class Functions {
 	
 	public static final BooleanSupplier BOOL_SUPPLIER_TRUE = () -> true;

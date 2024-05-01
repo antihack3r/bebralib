@@ -10,6 +10,9 @@ import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.Objects;
 
+/**
+ * Some color utilities.
+ */
 public class Colors {
 	
 	/**
