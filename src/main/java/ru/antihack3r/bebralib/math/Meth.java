@@ -128,11 +128,11 @@ public class Meth {
 	}
 	
 	/**
-	 * Returns an {@code integer} value that is the highest of
-	 * those which are lower than or equal to {@code value}.
+	 * Returns the largest {@code integer} value that is
+	 * less than or equal to the argument.
 	 * @param value The value to be floored.
-	 * @return An {@code integer} value that is the highest of
-	 * those which are lower or equal to {@code value}
+	 * @return the largest value that is less than or
+	 * equal to the argument.
 	 */
 	public static int floor(float value) {
 		if (Float.isNaN(value) || value == 0F) return 0;
@@ -144,11 +144,11 @@ public class Meth {
 	}
 	
 	/**
-	 * Returns an {@code integer} value that is the highest of
-	 * those which are lower than or equal to {@code value}.
+	 * Returns the largest {@code integer} value that is
+	 * less than or equal to the argument.
 	 * @param value The value to be floored.
-	 * @return An {@code integer} value that is the highest of
-	 * those which are lower or equal to {@code value}
+	 * @return the largest value that is less than or
+	 * equal to the argument.
 	 */
 	public static int floor(double value) {
 		if (Double.isNaN(value) || value == 0F) return 0;
@@ -160,11 +160,11 @@ public class Meth {
 	}
 	
 	/**
-	 * Returns an {@code integer} value that is the lowest of
-	 * those which are higher or equal to {@code value}.
+	 * Returns the lowest {@code integer} value that is
+	 * more than or equal to the argument.
 	 * @param value The value to be floored.
-	 * @return An {@code integer} value that is the lowest of
-	 * those which are higher or equal to {@code value}
+	 * @return the lowest value that is more than or
+	 * equal to the argument.
 	 */
 	public static int ceil(float value) {
 		if (Float.isNaN(value) || value == 0F) return 0;
@@ -176,11 +176,11 @@ public class Meth {
 	}
 	
 	/**
-	 * Returns an {@code integer} value that is the lowest of
-	 * those which are higher or equal to {@code value}.
+	 * Returns the lowest {@code integer} value that is
+	 * more than or equal to the argument.
 	 * @param value The value to be floored.
-	 * @return An {@code integer} value that is the lowest of
-	 * those which are higher or equal to {@code value}
+	 * @return the lowest value that is more than or
+	 * equal to the argument.
 	 */
 	public static int ceil(double value) {
 		if (Double.isNaN(value) || value == 0D) return 0;
