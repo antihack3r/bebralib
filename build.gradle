@@ -5,6 +5,10 @@ plugins {
 group = 'ru.antihack3r.bebralib'
 version = '1.0-beta-1'
 
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
 repositories {
     mavenCentral()
 }
