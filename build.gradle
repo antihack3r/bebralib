@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'ru.antihack3r.bebralib'
-version = '1.0-SNAPSHOT'
+version = '1.0-beta-1'
 
 repositories {
     mavenCentral()
