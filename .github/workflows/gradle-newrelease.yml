@@ -29,11 +29,14 @@ jobs:
       - name: Remove *-sources.jar
         run: rm ./build/libs/*-sources.jar || true
 
+      - name: Get commit's hash
+        run: echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
+
       - uses: "shxrklol/action-auto-releases-n20@v1.1"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
+          automatic_release_tag: "build-${{ env.sha_short }}"
           prerelease: true
-          title: "Latest Build"
+          title: "Build ${{ env.sha_short }}"
           files: |
             ./build/libs/*.jar
