@@ -40,7 +40,7 @@ public class Reflector {
 	 * Note that {@link Class#forName(String)} won't be able to resolve the class
 	 * loaded this way; it exists only here. 
 	 */
-	public static @Nullable Class<?> loadClassFromBytes(byte @Nonnull [] array) {
+	public static @Nullable Class<?> loadClassFromBytes(@Nonnull byte[] array) {
 		try (ByteClassLoader bcl = new ByteClassLoader()) {
 			return bcl.load(array);
 		} catch (IOException e) {
