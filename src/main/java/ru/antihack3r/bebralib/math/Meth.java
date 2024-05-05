@@ -362,5 +362,21 @@ public class Meth {
 	public static float atan(float a) {
 		return (float)StrictMath.atan(a);
 	}
+	
+	public static int interpolate(int from, int to, int difference) {
+		return from + (to - from) * difference;
+	}
+	
+	public static double interpolate(double from, double to, double difference) {
+		return from + (to - from) * difference;
+	}
+	
+	public static float interpolate(float from, float to, float difference) {
+		return from + (to - from) * difference;
+	}
+	
+	public static long interpolate(long from, long to, long difference) {
+		return from + (to - from) * difference;
+	}
 
 }
