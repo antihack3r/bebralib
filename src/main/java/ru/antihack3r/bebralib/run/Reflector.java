@@ -35,7 +35,8 @@ public class Reflector {
 	/**
 	 * Loads the given byte array as a {@link Class}.
 	 * @param array a byte array containing valid class-file bytes.
-	 * @return a new {@link Class} loaded from the given array, ready to be used. 
+	 * @return a new {@link Class} loaded from the given array, ready to be used, or <tt>null</tt> if the array
+	 * does not represent a valid class-file.<br>
 	 * Note that {@link Class#forName(String)} won't be able to resolve the class
 	 * loaded this way; it exists only here. 
 	 */
