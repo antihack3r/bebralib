@@ -1,7 +1,7 @@
 <component name="CopyrightManager">
   <copyright>
-    <option name="keyword" />
-    <option name="notice" value="This file is a part of bebralib -- you can get yo copy at https://github.com/antihack3r/bebralib" />
+    <option name="keyword" value="antihack3r/bebralib" />
+    <option name="notice" value="This file is a part of bebralib -- you can get yo copy at https://github.com/antihack3r/bebralib&#10;&#10;This code is free software. It comes without any warranty, to the extent permitted by&#10;applicable law. You can redistribute it and/or modify it under the terms of the&#10;Do What The Fuck You Want To Public License, Version 2, as published by Sam Hocevar.&#10;See http://www.wtfpl.net/ for more details. " />
     <option name="myName" value="bebra" />
   </copyright>
 </component>
