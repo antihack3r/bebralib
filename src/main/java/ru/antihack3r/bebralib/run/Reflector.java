@@ -21,7 +21,7 @@ public class Reflector {
 	 * Checks if the class named <tt>className</tt> exists.
 	 * @param className the name of the class that needs to be located.
 	 * @return <tt>true</tt> if the class named <tt>className</tt> exists, <tt>false</tt> otherwise.
-	 * @see Reflector#isClassVisible(String, ClassLoader) 
+	 * @see Reflector#isClassVisible(Class, ClassLoader)
 	 */
 	public static boolean doesClassExist(@Nonnull String className) {
 		try {
@@ -33,23 +33,16 @@ public class Reflector {
 	}
 	
 	/**
-	 * Checks if the class named <tt>className</tt> exists and is reachable from caller's point of view.
-	 * @param className the name of the class that needs to be located.
+	 * Checks if <tt>clazz</tt> is reachable from caller's point of view.
+	 * @param clazz the class that needs to be checked.
 	 * @param callerLoader the class loader context from which the class needs to be located.
 	 * (If <tt>null</tt>, returns <tt>true</tt> immediately.)
-	 * @return <tt>true</tt> if the class named <tt>className</tt> exists and is reachable from caller's point of view,
+	 * @return <tt>true</tt> if <tt>clazz</tt> is reachable from caller's point of view,
 	 * <tt>false</tt> otherwise.
 	 * @see Reflector#doesClassExist(String)
 	 */
-	public static boolean isClassVisible(@Nonnull String className, @Nullable ClassLoader callerLoader) {
+	public static boolean isClassVisible(@Nonnull Class<?> clazz, @Nullable ClassLoader callerLoader) {
 		if (callerLoader == null) return true;
-		
-		Class<?> clazz;
-		try {
-			clazz = Class.forName(className, false, callerLoader);
-		} catch (ClassNotFoundException exc) {
-			return false;
-		}
 		
 		try {
 			if (clazz.getClassLoader() == callerLoader) {
