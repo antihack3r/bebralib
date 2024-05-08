@@ -12,21 +12,66 @@ package ru.antihack3r.bebralib.run;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 
 public class Reflector {
 	
-	public static Method getDeclaredMethod(Class<?> clazz, String methodName, Class<?>... argTypes) {
+	/**
+	 * Checks if the class named <tt>className</tt> exists.
+	 * @param className the name of the class that needs to be located.
+	 * @return <tt>true</tt> if the class named <tt>className</tt> exists, <tt>false</tt> otherwise.
+	 * @see Reflector#isClassVisible(String, ClassLoader) 
+	 */
+	public static boolean doesClassExist(@Nonnull String className) {
 		try {
-			return clazz.getDeclaredMethod(methodName, argTypes);
-		} catch (NoSuchMethodException e) {
-			return null;
+			Class.forName(className);
+			return true;
+		} catch (ClassNotFoundException e) {
+			return false;
 		}
 	}
 	
-	public static Class<?>[] getTypes(Object... args) {
+	/**
+	 * Checks if the class named <tt>className</tt> exists and is reachable from caller's point of view.
+	 * @param className the name of the class that needs to be located.
+	 * @param callerLoader the class loader context from which the class needs to be located.
+	 * (If <tt>null</tt>, returns <tt>true</tt> immediately.)
+	 * @return <tt>true</tt> if the class named <tt>className</tt> exists and is reachable from caller's point of view,
+	 * <tt>false</tt> otherwise.
+	 * @see Reflector#doesClassExist(String)
+	 */
+	public static boolean isClassVisible(@Nonnull String className, @Nullable ClassLoader callerLoader) {
+		if (callerLoader == null) return true;
+		
+		Class<?> clazz;
+		try {
+			clazz = Class.forName(className, false, callerLoader);
+		} catch (ClassNotFoundException exc) {
+			return false;
+		}
+		
+		try {
+			if (clazz.getClassLoader() == callerLoader) {
+				return true;
+			}
+		} catch (SecurityException ex) {
+			// eat the exception
+		}
+		
+		try {
+			return clazz == callerLoader.loadClass(clazz.getName());
+		} catch (ClassNotFoundException exc) {
+			return false;
+		}
+	}
+	
+	/**
+	 * Makes an array of {@link Class} descriptors representing types of elements in <tt>args</tt>
+	 * @param args an array containing elements of whatever types that are going to be returned.
+	 * @return an array of {@link Class} descriptors representing types of elements in <tt>args</tt>
+	 */
+	public static @Nonnull Class<?>[] getTypes(@Nonnull Object... args) {
 		Class<?>[] argTypes = new Class[args.length];
 		int counter = 0;
 		for (Object arg: args) {
