@@ -9,6 +9,8 @@
 
 package ru.antihack3r.bebralib.data;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -42,7 +44,7 @@ public class Stack<T> {
 	 * Constructs a new {@link Stack}, containing elements of the specified collection,
 	 * in the order that they are in the specified collection.
 	 */
-	public Stack(Collection<T> initialElements) {
+	public Stack(@Nonnull Collection<T> initialElements) {
 		this.delegate = new ArrayList<>(initialElements);
 		this.lock = this;
 	}
@@ -51,7 +53,7 @@ public class Stack<T> {
 	 * Constructs a new {@link Stack}, containing elements of the specified array,
 	 * in the order that they are in the specified array.
 	 */
-	public Stack(T[] initialElements) {
+	public Stack(@Nonnull T[] initialElements) {
 		this.delegate = new ArrayList<>(Arrays.asList(initialElements));
 		this.lock = this;
 	}
@@ -60,7 +62,7 @@ public class Stack<T> {
 	 * Pushes the given element onto the top of the stack.
 	 * @param thing the element that must be pushed to the top of the stack.
 	 */
-	public void push(T thing) {
+	public void push(@Nullable T thing) {
 		synchronized (this.lock) {
 			this.delegate.add(0, thing);
 		}
@@ -71,7 +73,7 @@ public class Stack<T> {
 	 * @return the top of the stack.
 	 * @throws NoSuchElementException if the stack is empty.
 	 */
-	public T pop() {
+	public @Nullable T pop() {
 		synchronized(this.lock) {
 			if (this.delegate.isEmpty())
 				throw new NoSuchElementException();
@@ -87,7 +89,7 @@ public class Stack<T> {
 	 * @throws IndexOutOfBoundsException if <tt>index</tt> is out of this stack's bounds.
 	 * @throws NoSuchElementException if the stack is empty.
 	 */
-	public T peek(int index) {
+	public @Nullable T peek(int index) {
 		synchronized(this.lock) {
 			if (this.delegate.isEmpty())
 				throw new NoSuchElementException();
@@ -101,7 +103,7 @@ public class Stack<T> {
 	 * @return the first element of the stack.
 	 * @throws NoSuchElementException if the stack is empty.
 	 */
-	public T top() {
+	public @Nullable T top() {
 		return peek(0);
 	}
 
@@ -110,7 +112,7 @@ public class Stack<T> {
 	 * @return the last element of the stack.
 	 * @throws NoSuchElementException if the stack is empty.
 	 */
-	public T bottom() {
+	public @Nullable T bottom() {
 		return peek(this.delegate.size() - 1);
 	}
 	
