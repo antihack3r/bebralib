@@ -10,7 +10,6 @@
 package ru.antihack3r.bebralib.data;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -23,7 +22,6 @@ public class Functions {
 	
 	public static final BooleanSupplier BOOL_SUPPLIER_TRUE = () -> true;
 	public static final BooleanSupplier BOOL_SUPPLIER_FALSE = () -> false;
-	public static final Predicate<?> PREDICATE_NONNULL = Objects::nonNull;
 	
 	/**
 	 * Makes a new {@link Consumer} that does nothing.

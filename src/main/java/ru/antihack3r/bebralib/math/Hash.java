@@ -9,8 +9,6 @@
 
 package ru.antihack3r.bebralib.math;
 
-import ru.antihack3r.bebralib.data.MoreArrays;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.nio.charset.Charset;
@@ -32,17 +30,29 @@ public enum Hash {
 	CRC_32("CRC-32") {
 		private CRC32 crc32;
 		
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
-		public @Nonnull String generateHash(@Nonnull String value, Charset charset) {
+		public @Nonnull byte[] generateHash(@Nonnull byte[] array) {
 			if (crc32 == null)
 				crc32 = new CRC32();
 			
-			crc32.update(value.getBytes(charset == null? StandardCharsets.UTF_8: charset));
+			crc32.update(array);
 			long v = crc32.getValue();
 			crc32.reset();
 			
-			return crcValueToHex(v);
+			return longToBytes(v);
 		}
+		
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public @Nonnull byte[] generateHash(@Nonnull String value, Charset charset) {
+			return generateHash(value.getBytes(charset == null? StandardCharsets.UTF_8: charset));
+		}
+		
 	},
 	MD5("MD5");
 	
@@ -56,41 +66,42 @@ public enum Hash {
 	 * Generates the hash using the current method.
 	 * @param value the value.
 	 * @param charset the charset to be used for extracting bytes from {@code value}.
+	 * @return a byte array representing the hash of.
+	 */
+	public @Nonnull byte[] generateHash(@Nonnull String value, @Nullable Charset charset) {
+		return generateHash(value.getBytes(charset == null? StandardCharsets.UTF_8: charset));
+	}
+	
+	/**
+	 * Generates the hash using the current method.
+	 * @param array a byte array the values of which need to be hashed.
 	 * @return the hexadecimal hash value.
 	 */
-	public @Nonnull String generateHash(@Nonnull String value, @Nullable Charset charset) {
-		byte[] bytes = value.getBytes(charset == null? StandardCharsets.UTF_8: charset);
-		
+	public @Nonnull byte[] generateHash(@Nonnull byte[] array) {
 		MessageDigest digest;
 		try {
 			digest = MessageDigest.getInstance(method);
 		} catch (NoSuchAlgorithmException exception) {
 			throw new RuntimeException(method + " This shouldn't happen...");
 		}
-		byte[] encodedHash = digest.digest(bytes);
-		return bytesToHex(encodedHash);
+		
+		return digest.digest(array);
 	}
 	
 	/**
-	 * Turns {@code bytes} into its hexadecimal representation.
-	 * @param bytes a byte array.
-	 * @return the hexadecimal representation of {@code bytes}.
+	 * Turns a <tt>long</tt> value in its byte representation.
+	 * @param l a value which needs to be represented as a byte array.
+	 * @return a <tt>long</tt> value in its byte representation.
 	 */
-	private static @Nonnull String bytesToHex(@Nonnull byte[] bytes) {
-		StringBuilder sb = new StringBuilder();
+	private static byte[] longToBytes(long l) {
+		byte[] result = new byte[Long.BYTES];
+		for (int i = Long.BYTES - 1; i >= 0; i--) {
+			result[i] = (byte)(l & 0xFF);
+			
+			l >>= Byte.SIZE;
+		}
 		
-		MoreArrays.forEach(bytes, b -> sb.append(String.format("%02X", b)));
-		
-		return sb.toString();
-	}
-	
-	/**
-	 * Represents {@code value} as a hexadecimal string.
-	 * @param value a {@code long} to be represented as a hexadecimal string.
-	 * @return a hexadecimal string representation of {@code value}.
-	 */
-	private static @Nonnull String crcValueToHex(long value) {
-		return Long.toHexString(value).toUpperCase();
+		return result;
 	}
 
 }
