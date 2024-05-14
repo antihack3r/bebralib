@@ -19,9 +19,9 @@ import java.util.zip.CRC32;
 
 /**
  * Contains four hash algorithms which can be used by
- * calling {@link Hash#generateHash(String, Charset)}.
+ * calling {@link Hash#compute(String, Charset)}.
  * For example, to get the MD5 hash of "12345678", you
- * go <pre>{@code Hash.MD5.generateHash("12345678", null);}</pre>.
+ * go <pre>{@code Hash.MD5.compute("12345678", null);}</pre>.
  */
 public enum Hash {
 	
@@ -34,7 +34,7 @@ public enum Hash {
 		 * {@inheritDoc}
 		 */
 		@Override
-		public @Nonnull byte[] generateHash(@Nonnull byte[] array) {
+		public @Nonnull byte[] compute(@Nonnull byte[] array) {
 			if (crc32 == null)
 				crc32 = new CRC32();
 			
@@ -49,8 +49,8 @@ public enum Hash {
 		 * {@inheritDoc}
 		 */
 		@Override
-		public @Nonnull byte[] generateHash(@Nonnull String value, Charset charset) {
-			return generateHash(value.getBytes(charset == null? StandardCharsets.UTF_8: charset));
+		public @Nonnull byte[] compute(@Nonnull String value, Charset charset) {
+			return compute(value.getBytes(charset == null? StandardCharsets.UTF_8: charset));
 		}
 		
 	},
@@ -68,8 +68,8 @@ public enum Hash {
 	 * @param charset the charset to be used for extracting bytes from {@code value}.
 	 * @return a byte array representing the hash of.
 	 */
-	public @Nonnull byte[] generateHash(@Nonnull String value, @Nullable Charset charset) {
-		return generateHash(value.getBytes(charset == null? StandardCharsets.UTF_8: charset));
+	public @Nonnull byte[] compute(@Nonnull String value, @Nullable Charset charset) {
+		return compute(value.getBytes(charset == null? StandardCharsets.UTF_8: charset));
 	}
 	
 	/**
@@ -77,12 +77,12 @@ public enum Hash {
 	 * @param array a byte array the values of which need to be hashed.
 	 * @return the hexadecimal hash value.
 	 */
-	public @Nonnull byte[] generateHash(@Nonnull byte[] array) {
+	public @Nonnull byte[] compute(@Nonnull byte[] array) {
 		MessageDigest digest;
 		try {
 			digest = MessageDigest.getInstance(method);
 		} catch (NoSuchAlgorithmException exception) {
-			throw new RuntimeException(method + " This shouldn't happen...");
+			throw new RuntimeException("This shouldn't happen...");
 		}
 		
 		return digest.digest(array);
