@@ -7,7 +7,7 @@
  * See http://www.wtfpl.net/ for more details.
  */
 
-package ru.antihack3r.bebralib.data;
+package ru.antihack3r.bebralib.misc;
 
 import javax.annotation.Nonnull;
 import java.util.*;
