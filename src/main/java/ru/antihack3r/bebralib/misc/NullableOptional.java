@@ -35,6 +35,11 @@ import java.util.function.*;
 public class NullableOptional<T> {
 	
 	/**
+	 * Common instance for {@link #empty()}.
+	 */
+	private static final NullableOptional<?> EMPTY = new NullableOptional<>();
+	
+	/**
 	 * The value. May be null.
 	 */
 	@Nullable
@@ -66,11 +71,20 @@ public class NullableOptional<T> {
 	}
 	
 	/**
-	 * Constructs a new empty {@link NullableOptional} instance
-	 * with the value <b>not</b> present and returns it.
+	 * Returns an empty {@link NullableOptional} instance.
+	 * No value is present for this Optional.
+	 *
+	 * @apiNote Though it may be tempting to do so, avoid testing if an object
+	 * is empty by comparing with {@code ==} against instances returned by
+	 * this method. There is no guarantee that it is a singleton. Instead, use
+	 * {@link #isPresent()} or {@link #isEmpty()}.
+	 *
+	 * @param <T> Type of the non-existent value.
+	 * @return an empty {@link NullableOptional} instance.
 	 */
 	public static <T> NullableOptional<T> empty() {
-		return new NullableOptional<>();
+		//noinspection unchecked
+		return (NullableOptional<T>) EMPTY;
 	}
 	
 	/**

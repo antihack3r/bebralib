@@ -28,16 +28,10 @@ public class Stack<T> {
 	private final ArrayList<T> delegate;
 	
 	/**
-	 * A field used to lock.
-	 */
-	private final Object lock;
-	
-	/**
 	 * Constructs a new empty {@link Stack}.
 	 */
 	public Stack() {
 		this.delegate = new ArrayList<>();
-		this.lock = this;
 	}
 	
 	/**
@@ -46,7 +40,6 @@ public class Stack<T> {
 	 */
 	public Stack(@Nonnull Collection<T> initialElements) {
 		this.delegate = new ArrayList<>(initialElements);
-		this.lock = this;
 	}
 	
 	/**
@@ -55,7 +48,6 @@ public class Stack<T> {
 	 */
 	public Stack(@Nonnull T[] initialElements) {
 		this.delegate = new ArrayList<>(Arrays.asList(initialElements));
-		this.lock = this;
 	}
 	
 	/**
@@ -63,7 +55,7 @@ public class Stack<T> {
 	 * @param thing the element that must be pushed to the top of the stack.
 	 */
 	public void push(@Nullable T thing) {
-		synchronized (this.lock) {
+		synchronized (this) {
 			this.delegate.add(0, thing);
 		}
 	}
@@ -74,7 +66,7 @@ public class Stack<T> {
 	 * @throws NoSuchElementException if the stack is empty.
 	 */
 	public @Nullable T pop() {
-		synchronized(this.lock) {
+		synchronized (this) {
 			if (this.delegate.isEmpty())
 				throw new NoSuchElementException();
 			
@@ -90,7 +82,7 @@ public class Stack<T> {
 	 * @throws NoSuchElementException if the stack is empty.
 	 */
 	public @Nullable T peek(int index) {
-		synchronized(this.lock) {
+		synchronized (this) {
 			if (this.delegate.isEmpty())
 				throw new NoSuchElementException();
 			
@@ -122,7 +114,7 @@ public class Stack<T> {
 	 * otherwise.
 	 */
 	public boolean isEmpty() {
-		synchronized(this.lock) {
+		synchronized (this) {
 			return this.delegate.isEmpty();
 		}
 	}
@@ -132,7 +124,7 @@ public class Stack<T> {
 	 * @return size of the stack.
 	 */
 	public int size() {
-		synchronized(this.lock) {
+		synchronized (this) {
 			return this.delegate.size();
 		}
 	}
